@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" id="html-root">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,6 +27,11 @@
       color: var(--color-text);
       line-height: 1.6;
       overflow-x: hidden;
+      transition: opacity 0.3s ease;
+    }
+
+    body.lang-switching {
+      opacity: 0.7;
     }
 
     /* Navigation */
@@ -42,6 +47,12 @@
       background: rgba(10, 25, 47, 0.85);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
     }
 
     .logo {
@@ -70,6 +81,37 @@
     }
 
     .nav-links a:hover { color: var(--color-primary); }
+
+    /* Language Switcher */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px solid rgba(100, 255, 218, 0.3);
+      border-radius: 20px;
+      padding: 4px 14px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+      transition: all 0.25s ease;
+      user-select: none;
+    }
+
+    .lang-switcher:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .lang-switcher .lang-icon {
+      font-size: 1rem;
+    }
+
+    .lang-switcher .lang-label {
+      min-width: 28px;
+      text-align: center;
+    }
 
     /* Hero Section */
     .hero {
@@ -450,7 +492,8 @@
     }
     @media (max-width: 768px) {
       nav { padding: 15px 20px; }
-      .nav-links { gap: 18px; }
+      .nav-links { gap: 14px; }
+      .nav-right { gap: 14px; }
       section { padding: 70px 20px; }
       .section-heading { font-size: 1.5rem; }
     }
@@ -461,13 +504,19 @@
   <!-- Navigation -->
   <nav>
     <a href="#" class="logo">Zhu<span>Liang</span></a>
-    <ul class="nav-links">
-      <li><a href="#about">关于</a></li>
-      <li><a href="#experience">经历</a></li>
-      <li><a href="#skills">技能</a></li>
-      <li><a href="#projects">项目</a></li>
-      <li><a href="#contact">联系</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#about" data-i18n="nav.about">关于</a></li>
+        <li><a href="#experience" data-i18n="nav.experience">经历</a></li>
+        <li><a href="#skills" data-i18n="nav.skills">技能</a></li>
+        <li><a href="#projects" data-i18n="nav.projects">项目</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">联系</a></li>
+      </ul>
+      <button class="lang-switcher" id="lang-toggle" title="Switch Language">
+        <span class="lang-icon">🌐</span>
+        <span class="lang-label" id="lang-label">EN</span>
+      </button>
+    </div>
   </nav>
 
   <!-- Hero -->
@@ -476,31 +525,31 @@
       <img src="avatar.jpg" alt="朱亮" />
     </div>
     <div class="hero-content">
-      <p class="hero-subtitle">Hi there! 👋 我是</p>
+      <p class="hero-subtitle" data-i18n="hero.subtitle">Hi there! 👋 我是</p>
       <h1 class="hero-title">
-        朱亮
+        <span data-i18n="hero.name">朱亮</span>
         <br />
-        <span class="highlight">数据驱动决策者。</span>
+        <span class="highlight" data-i18n="hero.tagline">数据驱动决策者。</span>
       </h1>
-      <p class="hero-desc">
+      <p class="hero-desc" data-i18n="hero.desc">
         近 9 年头部企业数据分析经验，深耕跨境电商、互联网广告、品牌 CRM 三大领域。<br /><br />
         擅长从 0 到 1 搭建业务指标体系，通过数据挖掘定位问题并推动策略落地，用数据让决策更精准。
       </p>
-      <a href="#contact" class="cta-btn">联系我 →</a>
+      <a href="#contact" class="cta-btn" data-i18n="hero.cta">联系我 →</a>
     </div>
   </section>
 
   <!-- About -->
   <section id="about">
-    <h2 class="section-heading">关于我</h2>
+    <h2 class="section-heading" data-i18n="about.heading">关于我</h2>
     <div class="about-grid">
       <div class="about-text">
-        <p>我是朱亮，一名专注于数据分析与业务洞察的从业者。我相信好的分析不只是产出报表，而是能真正推动业务增长、降低成本、提升效率的决策引擎。</p>
-        <p>从腾讯视频到希音（SHEIN），再到跨境电商领域，我在不同行业积累了丰富的实战经验，始终以「数据驱动」为核心方法论。</p>
+        <p data-i18n="about.p1">我是朱亮，一名专注于数据分析与业务洞察的从业者。我相信好的分析不只是产出报表，而是能真正推动业务增长、降低成本、提升效率的决策引擎。</p>
+        <p data-i18n="about.p2">从腾讯视频到希音（SHEIN），再到跨境电商领域，我在不同行业积累了丰富的实战经验，始终以「数据驱动」为核心方法论。</p>
         <ul>
-          <li>📍 Base 杭州</li>
-          <li>🎓 华中农业大学 · 本科 (211)</li>
-          <li>🎯 求职方向：数据分析 / 业务分析</li>
+          <li data-i18n="about.loc">📍 Base 杭州</li>
+          <li data-i18n="about.edu">🎓 华中农业大学 · 本科 (211)</li>
+          <li data-i18n="about.goal">🎯 求职方向：数据分析 / 业务分析</li>
         </ul>
       </div>
     </div>
@@ -508,73 +557,73 @@
 
   <!-- Experience -->
   <section id="experience">
-    <h2 class="section-heading">工作经历</h2>
+    <h2 class="section-heading" data-i18n="exp.heading">工作经历</h2>
     <div class="timeline">
       <div class="timeline-item">
-        <p class="timeline-date">2025.04 — 至今</p>
-        <h3 class="timeline-role">交付经理 · 创新高效中心</h3>
-        <p class="timeline-company">数织科技（子不语跨境电商）</p>
-        <p class="timeline-desc">负责亚马逊广告系统交付实施，对接亿级大卖客户，搭建广告效果 BI 看板，推动交付流程优化与 SOP 沉淀，交付周期缩短 50%+。</p>
+        <p class="timeline-date" data-i18n="exp.date1">2025.04 — 至今</p>
+        <h3 class="timeline-role" data-i18n="exp.role1">交付经理 · 创新高效中心</h3>
+        <p class="timeline-company" data-i18n="exp.company1">数织科技（子不语跨境电商）</p>
+        <p class="timeline-desc" data-i18n="exp.desc1">负责亚马逊广告系统交付实施，对接亿级大卖客户，搭建广告效果 BI 看板，推动交付流程优化与 SOP 沉淀，交付周期缩短 50%+。</p>
       </div>
       <div class="timeline-item">
-        <p class="timeline-date">2023.07 — 2024.09</p>
-        <h3 class="timeline-role">高级数据分析师 · 运营分析部</h3>
-        <p class="timeline-company">希音 SHEIN（跨境电商）</p>
-        <p class="timeline-desc">负责墨西哥市场（DAU 800w+）全站数据分析。主导优惠券精细化运营项目，构建 RFM 用户分层模型 + A/B 测试验证，实现 UV 销售额提升 5%+。</p>
+        <p class="timeline-date" data-i18n="exp.date2">2023.07 — 2024.09</p>
+        <h3 class="timeline-role" data-i18n="exp.role2">高级数据分析师 · 运营分析部</h3>
+        <p class="timeline-company" data-i18n="exp.company2">希音 SHEIN（跨境电商）</p>
+        <p class="timeline-desc" data-i18n="exp.desc2">负责墨西哥市场（DAU 800w+）全站数据分析。主导优惠券精细化运营项目，构建 RFM 用户分层模型 + A/B 测试验证，实现 UV 销售额提升 5%+。</p>
       </div>
       <div class="timeline-item">
-        <p class="timeline-date">2020.06 — 2023.07</p>
-        <h3 class="timeline-role">高级业务分析师 · 业务分析部</h3>
-        <p class="timeline-company">迈睿中国 / Teleperformance（资生堂 CRM 项目）</p>
-        <p class="timeline-desc">负责资生堂客户关系管理数据分析。主导异常账户识别模型搭建，累计识别异常账户 8 万+，每次营销活动节省费用 1w+；优化会员积分机制，兑礼率提升 7pp。</p>
+        <p class="timeline-date" data-i18n="exp.date3">2020.06 — 2023.07</p>
+        <h3 class="timeline-role" data-i18n="exp.role3">高级业务分析师 · 业务分析部</h3>
+        <p class="timeline-company" data-i18n="exp.company3">迈睿中国 / Teleperformance（资生堂 CRM 项目）</p>
+        <p class="timeline-desc" data-i18n="exp.desc3">负责资生堂客户关系管理数据分析。主导异常账户识别模型搭建，累计识别异常账户 8 万+，每次营销活动节省费用 1w+；优化会员积分机制，兑礼率提升 7pp。</p>
       </div>
       <div class="timeline-item">
-        <p class="timeline-date">2019.02 — 2020.05</p>
-        <h3 class="timeline-role">数据分析师 · 数据及市场组</h3>
-        <p class="timeline-company">腾讯视频</p>
-        <p class="timeline-desc">负责电视端广告业务数据分析，监控核心指标并制定销售 KPI，推动 OTT 广告库存优化，售卖率提升 3pp，库存消耗效率提高 20%。</p>
+        <p class="timeline-date" data-i18n="exp.date4">2019.02 — 2020.05</p>
+        <h3 class="timeline-role" data-i18n="exp.role4">数据分析师 · 数据及市场组</h3>
+        <p class="timeline-company" data-i18n="exp.company4">腾讯视频</p>
+        <p class="timeline-desc" data-i18n="exp.desc4">负责电视端广告业务数据分析，监控核心指标并制定销售 KPI，推动 OTT 广告库存优化，售卖率提升 3pp，库存消耗效率提高 20%。</p>
       </div>
       <div class="timeline-item">
-        <p class="timeline-date">2017.07 — 2018.10</p>
-        <h3 class="timeline-role">全球数据管理 · 市场战略管理部</h3>
-        <p class="timeline-company">北汽福田</p>
-        <p class="timeline-desc">分析全球汽车销量趋势与竞争格局，输出战略分析报告支持管理层决策与战略规划。</p>
+        <p class="timeline-date" data-i18n="exp.date5">2017.07 — 2018.10</p>
+        <h3 class="timeline-role" data-i18n="exp.role5">全球数据管理 · 市场战略管理部</h3>
+        <p class="timeline-company" data-i18n="exp.company5">北汽福田</p>
+        <p class="timeline-desc" data-i18n="exp.desc5">分析全球汽车销量趋势与竞争格局，输出战略分析报告支持管理层决策与战略规划。</p>
       </div>
     </div>
   </section>
 
   <!-- Skills -->
   <section id="skills">
-    <h2 class="section-heading">技能 & 工具</h2>
+    <h2 class="section-heading" data-i18n="skills.heading">技能 & 工具</h2>
     <div class="skills-grid">
       <div class="skill-card">
-        <h3>数据工具</h3>
+        <h3 data-i18n="skills.cat1">数据工具</h3>
         <ul class="skill-list">
-          <li>SQL</li>
-          <li>Python (Pandas)</li>
-          <li>Excel (VBA)</li>
-          <li>Quick BI</li>
-          <li>Tableau</li>
+          <li data-i18n="skills.tool1">SQL</li>
+          <li data-i18n="skills.tool2">Python (Pandas)</li>
+          <li data-i18n="skills.tool3">Excel (VBA)</li>
+          <li data-i18n="skills.tool4">Quick BI</li>
+          <li data-i18n="skills.tool5">Tableau</li>
         </ul>
       </div>
       <div class="skill-card">
-        <h3>分析方法</h3>
+        <h3 data-i18n="skills.cat2">分析方法</h3>
         <ul class="skill-list">
-          <li>RFM 用户分层</li>
-          <li>A/B 测试设计</li>
-          <li>转化漏斗分析</li>
-          <li>用户留存分析</li>
-          <li>指标体系搭建</li>
+          <li data-i18n="skills.method1">RFM 用户分层</li>
+          <li data-i18n="skills.method2">A/B 测试设计</li>
+          <li data-i18n="skills.method3">转化漏斗分析</li>
+          <li data-i18n="skills.method4">用户留存分析</li>
+          <li data-i18n="skills.method5">指标体系搭建</li>
         </ul>
       </div>
       <div class="skill-card">
-        <h3>业务领域</h3>
+        <h3 data-i18n="skills.cat3">业务领域</h3>
         <ul class="skill-list">
-          <li>跨境电商</li>
-          <li>互联网广告</li>
-          <li>品牌 CRM</li>
-          <li>营销策略优化</li>
-          <li>异常检测建模</li>
+          <li data-i18n="skills.domain1">跨境电商</li>
+          <li data-i18n="skills.domain2">互联网广告</li>
+          <li data-i18n="skills.domain3">品牌 CRM</li>
+          <li data-i18n="skills.domain4">营销策略优化</li>
+          <li data-i18n="skills.domain5">异常检测建模</li>
         </ul>
       </div>
     </div>
@@ -582,7 +631,7 @@
 
   <!-- Projects -->
   <section id="projects">
-    <h2 class="section-heading">核心项目</h2>
+    <h2 class="section-heading" data-i18n="projects.heading">核心项目</h2>
     <div class="projects-grid">
       <div class="project-card">
         <div class="project-header">
@@ -593,12 +642,12 @@
           </div>
         </div>
         <div class="project-body">
-          <h3>优惠券策略优化</h3>
-          <p>基于 RFM 模型构建多维度用户分层，设计分群差异化优惠券策略，通过 A/B 测试验证显著性。最终 UV 销售额提升 5%+，利润降幅控制在 1% 以内，助力大促 GMV 目标达成 100%+。</p>
+          <h3 data-i18n="projects.p1_title">优惠券策略优化</h3>
+          <p data-i18n="projects.p1_desc">基于 RFM 模型构建多维度用户分层，设计分群差异化优惠券策略，通过 A/B 测试验证显著性。最终 UV 销售额提升 5%+，利润降幅控制在 1% 以内，助力大促 GMV 目标达成 100%+。</p>
           <ul class="project-tech">
-            <li>RFM 分层</li>
-            <li>A/B 测试</li>
-            <li>SHEIN</li>
+            <li data-i18n="projects.p1_tag1">RFM 分层</li>
+            <li data-i18n="projects.p1_tag2">A/B 测试</li>
+            <li data-i18n="projects.p1_tag3">SHEIN</li>
           </ul>
         </div>
       </div>
@@ -611,12 +660,12 @@
           </div>
         </div>
         <div class="project-body">
-          <h3>异常账户识别模型</h3>
-          <p>针对资生堂 CRM 营销场景，从零搭建异常账户识别规则与模型，累计识别异常账户 8 万+。部署后每次营销活动节省费用 1w+，显著提升投放 ROI 与数据准确性。</p>
+          <h3 data-i18n="projects.p2_title">异常账户识别模型</h3>
+          <p data-i18n="projects.p2_desc">针对资生堂 CRM 营销场景，从零搭建异常账户识别规则与模型，累计识别异常账户 8 万+。部署后每次营销活动节省费用 1w+，显著提升投放 ROI 与数据准确性。</p>
           <ul class="project-tech">
-            <li>特征工程</li>
-            <li>规则引擎</li>
-            <li>资生堂 CRM</li>
+            <li data-i18n="projects.p2_tag1">特征工程</li>
+            <li data-i18n="projects.p2_tag2">规则引擎</li>
+            <li data-i18n="projects.p2_tag3">资生堂 CRM</li>
           </ul>
         </div>
       </div>
@@ -625,17 +674,218 @@
 
   <!-- Contact -->
   <section id="contact">
-    <h2 class="section-heading">联系我</h2>
+    <h2 class="section-heading" data-i18n="contact.heading">联系我</h2>
     <div class="contact-wrapper">
-      <p>无论是工作机会、技术交流还是合作探讨，都欢迎随时联系！</p>
-      <a href="mailto:zhuliang0827@gmail.com" class="contact-email">zhuliang0827@gmail.com</a>
+      <p data-i18n="contact.desc">无论是工作机会、技术交流还是合作探讨，都欢迎随时联系！</p>
+      <a href="mailto:zhuliang0827@gmail.com" class="contact-email" data-i18n="contact.email">zhuliang0827@gmail.com</a>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p>Built by <a href="#">朱亮</a> · Powered by GitHub Pages · © 2026</p>
+    <p data-i18n="footer.text">Built by <a href="#">朱亮</a> · Powered by GitHub Pages · © 2026</p>
   </footer>
+
+  <!-- i18n Scripts -->
+  <script>
+    // Translation dictionary
+    const translations = {
+      zh: {
+        "nav.about": "关于",
+        "nav.experience": "经历",
+        "nav.skills": "技能",
+        "nav.projects": "项目",
+        "nav.contact": "联系",
+        "hero.subtitle": "Hi there! 👋 我是",
+        "hero.name": "朱亮",
+        "hero.tagline": "数据驱动决策者。",
+        "hero.desc": "近 9 年头部企业数据分析经验，深耕跨境电商、互联网广告、品牌 CRM 三大领域。<br /><br />擅长从 0 到 1 搭建业务指标体系，通过数据挖掘定位问题并推动策略落地，用数据让决策更精准。",
+        "hero.cta": "联系我 →",
+        "about.heading": "关于我",
+        "about.p1": "我是朱亮，一名专注于数据分析与业务洞察的从业者。我相信好的分析不只是产出报表，而是能真正推动业务增长、降低成本、提升效率的决策引擎。",
+        "about.p2": "从腾讯视频到希音（SHEIN），再到跨境电商领域，我在不同行业积累了丰富的实战经验，始终以「数据驱动」为核心方法论。",
+        "about.loc": "📍 Base 杭州",
+        "about.edu": "🎓 华中农业大学 · 本科 (211)",
+        "about.goal": "🎯 求职方向：数据分析 / 业务分析",
+        "exp.heading": "工作经历",
+        "exp.date1": "2025.04 — 至今",
+        "exp.role1": "交付经理 · 创新高效中心",
+        "exp.company1": "数织科技（子不语跨境电商）",
+        "exp.desc1": "负责亚马逊广告系统交付实施，对接亿级大卖客户，搭建广告效果 BI 看板，推动交付流程优化与 SOP 沉淀，交付周期缩短 50%+。",
+        "exp.date2": "2023.07 — 2024.09",
+        "exp.role2": "高级数据分析师 · 运营分析部",
+        "exp.company2": "希音 SHEIN（跨境电商）",
+        "exp.desc2": "负责墨西哥市场（DAU 800w+）全站数据分析。主导优惠券精细化运营项目，构建 RFM 用户分层模型 + A/B 测试验证，实现 UV 销售额提升 5%+。",
+        "exp.date3": "2020.06 — 2023.07",
+        "exp.role3": "高级业务分析师 · 业务分析部",
+        "exp.company3": "迈睿中国 / Teleperformance（资生堂 CRM 项目）",
+        "exp.desc3": "负责资生堂客户关系管理数据分析。主导异常账户识别模型搭建，累计识别异常账户 8 万+，每次营销活动节省费用 1w+；优化会员积分机制，兑礼率提升 7pp。",
+        "exp.date4": "2019.02 — 2020.05",
+        "exp.role4": "数据分析师 · 数据及市场组",
+        "exp.company4": "腾讯视频",
+        "exp.desc4": "负责电视端广告业务数据分析，监控核心指标并制定销售 KPI，推动 OTT 广告库存优化，售卖率提升 3pp，库存消耗效率提高 20%。",
+        "exp.date5": "2017.07 — 2018.10",
+        "exp.role5": "全球数据管理 · 市场战略管理部",
+        "exp.company5": "北汽福田",
+        "exp.desc5": "分析全球汽车销量趋势与竞争格局，输出战略分析报告支持管理层决策与战略规划。",
+        "skills.heading": "技能 & 工具",
+        "skills.cat1": "数据工具",
+        "skills.tool1": "SQL",
+        "skills.tool2": "Python (Pandas)",
+        "skills.tool3": "Excel (VBA)",
+        "skills.tool4": "Quick BI",
+        "skills.tool5": "Tableau",
+        "skills.cat2": "分析方法",
+        "skills.method1": "RFM 用户分层",
+        "skills.method2": "A/B 测试设计",
+        "skills.method3": "转化漏斗分析",
+        "skills.method4": "用户留存分析",
+        "skills.method5": "指标体系搭建",
+        "skills.cat3": "业务领域",
+        "skills.domain1": "跨境电商",
+        "skills.domain2": "互联网广告",
+        "skills.domain3": "品牌 CRM",
+        "skills.domain4": "营销策略优化",
+        "skills.domain5": "异常检测建模",
+        "projects.heading": "核心项目",
+        "projects.p1_title": "优惠券策略优化",
+        "projects.p1_desc": "基于 RFM 模型构建多维度用户分层，设计分群差异化优惠券策略，通过 A/B 测试验证显著性。最终 UV 销售额提升 5%+，利润降幅控制在 1% 以内，助力大促 GMV 目标达成 100%+。",
+        "projects.p1_tag1": "RFM 分层",
+        "projects.p1_tag2": "A/B 测试",
+        "projects.p1_tag3": "SHEIN",
+        "projects.p2_title": "异常账户识别模型",
+        "projects.p2_desc": "针对资生堂 CRM 营销场景，从零搭建异常账户识别规则与模型，累计识别异常账户 8 万+。部署后每次营销活动节省费用 1w+，显著提升投放 ROI 与数据准确性。",
+        "projects.p2_tag1": "特征工程",
+        "projects.p2_tag2": "规则引擎",
+        "projects.p2_tag3": "资生堂 CRM",
+        "contact.heading": "联系我",
+        "contact.desc": "无论是工作机会、技术交流还是合作探讨，都欢迎随时联系！",
+        "contact.email": "zhuliang0827@gmail.com",
+        "footer.text": "Built by <a href=\"#\">朱亮</a> · Powered by GitHub Pages · © 2026"
+      },
+      en: {
+        "nav.about": "About",
+        "nav.experience": "Experience",
+        "nav.skills": "Skills",
+        "nav.projects": "Projects",
+        "nav.contact": "Contact",
+        "hero.subtitle": "Hi there! 👋 I'm",
+        "hero.name": "Zhu Liang",
+        "hero.tagline": "Data-Driven Decision Maker.",
+        "hero.desc": "9+ years of data analytics experience at top-tier companies, specializing in cross-border e-commerce, digital advertising, and brand CRM.<br /><br />Skilled at building business metrics systems from 0 to 1, uncovering insights through data mining, and driving strategy execution to make decisions more precise.",
+        "hero.cta": "Get In Touch →",
+        "about.heading": "About Me",
+        "about.p1": "I'm Zhu Liang, a data analyst focused on analytics and business insights. I believe great analysis goes beyond generating reports — it's a decision engine that truly drives business growth, reduces costs, and boosts efficiency.",
+        "about.p2": "From Tencent Video to SHEIN, and now in cross-border e-commerce, I've built extensive hands-on experience across industries, always with \"data-driven\" as my core methodology.",
+        "about.loc": "📍 Based in Hangzhou",
+        "about.edu": "🎓 Huazhong Agricultural University · Bachelor's (211)",
+        "about.goal": "🎯 Seeking: Data Analyst / Business Analyst",
+        "exp.heading": "Work Experience",
+        "exp.date1": "Apr 2025 — Present",
+        "exp.role1": "Delivery Manager · Innovation & Efficiency Center",
+        "exp.company1": "Shuzhi Tech (Zibuyu Cross-Border E-Commerce)",
+        "exp.desc1": "Led delivery and implementation of Amazon Ads system for top-tier sellers with 100M+ annual revenue. Built BI dashboards for ad performance tracking, optimized delivery workflows and SOP documentation, reducing delivery cycle by 50%+.",
+        "exp.date2": "Jul 2023 — Sep 2024",
+        "exp.role2": "Senior Data Analyst · Analytics Dept.",
+        "exp.company2": "SHEIN (Cross-Border E-Commerce)",
+        "exp.desc2": "Owned full-site data analytics for Mexico market (800w+ DAU). Led coupon optimization project using RFM segmentation + A/B testing, achieving 5%+ UV sales lift with profit drop controlled under 1%.",
+        "exp.date3": "Jun 2020 — Jul 2023",
+        "exp.role3": "Senior Business Analyst · Analytics Dept.",
+        "exp.company3": "Mai Rui / Teleperformance (Shiseido CRM)",
+        "exp.desc3": "Owned data analytics for Shiseido CRM. Built anomaly account detection model from scratch, identifying 80,000+ suspicious accounts and saving 10,000+ RMB per campaign; optimized membership points mechanism, increasing redemption rate by 7pp.",
+        "exp.date4": "Feb 2019 — May 2020",
+        "exp.role4": "Data Analyst · Data & Market Team",
+        "exp.company4": "Tencent Video",
+        "exp.desc4": "Analyzed OTT ad performance data, monitored core KPIs and set sales targets. Optimized ad inventory allocation, increasing sell-through rate by 3pp and inventory consumption efficiency by 20%.",
+        "exp.date5": "Jul 2017 — Oct 2018",
+        "exp.role5": "Global Data Management · Market Strategy Dept.",
+        "exp.company5": "BAIC Foton",
+        "exp.desc5": "Analyzed global automotive sales trends and competitive landscape, producing strategic analysis reports to support executive decision-making and planning.",
+        "skills.heading": "Skills & Tools",
+        "skills.cat1": "Data Tools",
+        "skills.tool1": "SQL",
+        "skills.tool2": "Python (Pandas)",
+        "skills.tool3": "Excel (VBA)",
+        "skills.tool4": "Quick BI",
+        "skills.tool5": "Tableau",
+        "skills.cat2": "Analytics Methods",
+        "skills.method1": "RFM Segmentation",
+        "skills.method2": "A/B Test Design",
+        "skills.method3": "Conversion Funnel",
+        "skills.method4": "User Retention",
+        "skills.method5": "Metrics Framework",
+        "skills.cat3": "Domain Expertise",
+        "skills.domain1": "Cross-Border E-Com",
+        "skills.domain2": "Digital Advertising",
+        "skills.domain3": "Brand CRM",
+        "skills.domain4": "Marketing Optimization",
+        "skills.domain5": "Anomaly Detection",
+        "projects.heading": "Key Projects",
+        "projects.p1_title": "Coupon Strategy Optimization",
+        "projects.p1_desc": "Built multi-dimensional user segmentation using RFM model, designed targeted coupon strategies per segment, and validated with A/B testing. Achieved 5%+ UV sales lift with <1% profit drop, helping hit 100%+ of GMV target during major sales events.",
+        "projects.p1_tag1": "RFM Segmentation",
+        "projects.p1_tag2": "A/B Testing",
+        "projects.p1_tag3": "SHEIN",
+        "projects.p2_title": "Anomaly Account Detection",
+        "projects.p2_desc": "Built anomaly account detection rules and models from scratch for Shiseido CRM campaigns, identifying 80,000+ suspicious accounts. Saved 10,000+ RMB per campaign and significantly improved marketing ROI and data accuracy.",
+        "projects.p2_tag1": "Feature Engineering",
+        "projects.p2_tag2": "Rules Engine",
+        "projects.p2_tag3": "Shiseido CRM",
+        "contact.heading": "Get In Touch",
+        "contact.desc": "Open to job opportunities, technical discussions, or collaboration. Feel free to reach out!",
+        "contact.email": "zhuliang0827@gmail.com",
+        "footer.text": "Built by <a href=\"#\">Zhu Liang</a> · Powered by GitHub Pages · © 2026"
+      }
+    };
+
+    // State
+    let currentLang = localStorage.getItem('lang') || 'zh';
+
+    function applyLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('lang', lang);
+
+      // Update all elements with data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const text = translations[lang][key];
+        if (text !== undefined) {
+          el.innerHTML = text;
+        }
+      });
+
+      // Update lang label on button
+      const label = document.getElementById('lang-label');
+      if (label) {
+        label.textContent = lang === 'zh' ? 'EN' : '中文';
+      }
+
+      // Update html lang attribute
+      const htmlRoot = document.getElementById('html-root');
+      if (htmlRoot) {
+        htmlRoot.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
+      }
+    }
+
+    function toggleLang() {
+      const newLang = currentLang === 'zh' ? 'en' : 'zh';
+      // Fade effect
+      document.body.classList.add('lang-switching');
+      setTimeout(() => {
+        applyLang(newLang);
+        document.body.classList.remove('lang-switching');
+      }, 200);
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      applyLang(currentLang);
+      const btn = document.getElementById('lang-toggle');
+      if (btn) {
+        btn.addEventListener('click', toggleLang);
+      }
+    });
+  </script>
 
 </body>
 </html>
