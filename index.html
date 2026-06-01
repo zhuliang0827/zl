@@ -31,7 +31,7 @@
     }
 
     body.lang-switching {
-      opacity: 0.7;
+      opacity: 0.6;
     }
 
     /* Navigation */
@@ -82,15 +82,19 @@
 
     .nav-links a:hover { color: var(--color-primary); }
 
-    /* Language Switcher */
-    .lang-switcher {
+    /* Language Dropdown */
+    .lang-dropdown {
+      position: relative;
+    }
+
+    .lang-trigger {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       background: transparent;
       border: 1px solid rgba(100, 255, 218, 0.3);
       border-radius: 20px;
-      padding: 4px 14px;
+      padding: 5px 14px;
       cursor: pointer;
       font-family: var(--font-mono);
       font-size: 0.8rem;
@@ -99,18 +103,67 @@
       user-select: none;
     }
 
-    .lang-switcher:hover {
+    .lang-trigger:hover {
       border-color: var(--color-primary);
       color: var(--color-primary);
     }
 
-    .lang-switcher .lang-icon {
-      font-size: 1rem;
+    .lang-trigger .arrow {
+      font-size: 0.65rem;
+      transition: transform 0.2s ease;
     }
 
-    .lang-switcher .lang-label {
-      min-width: 28px;
-      text-align: center;
+    .lang-dropdown.open .lang-trigger .arrow {
+      transform: rotate(180deg);
+    }
+
+    .lang-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: var(--color-bg-light);
+      border: 1px solid rgba(100, 255, 218, 0.15);
+      border-radius: 8px;
+      padding: 6px 0;
+      min-width: 130px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: all 0.2s ease;
+      box-shadow: 0 10px 30px -15px rgba(0,0,0,0.5);
+      z-index: 1001;
+    }
+
+    .lang-dropdown.open .lang-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .lang-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .lang-option:hover {
+      background: rgba(100, 255, 218, 0.06);
+      color: var(--color-primary);
+    }
+
+    .lang-option.active {
+      color: var(--color-primary);
+    }
+
+    .lang-option .lang-flag {
+      font-size: 1rem;
     }
 
     /* Hero Section */
@@ -512,10 +565,27 @@
         <li><a href="#projects" data-i18n="nav.projects">项目</a></li>
         <li><a href="#contact" data-i18n="nav.contact">联系</a></li>
       </ul>
-      <button class="lang-switcher" id="lang-toggle" title="Switch Language">
-        <span class="lang-icon">🌐</span>
-        <span class="lang-label" id="lang-label">EN</span>
-      </button>
+      <div class="lang-dropdown" id="lang-dropdown">
+        <button class="lang-trigger" id="lang-trigger">
+          <span class="lang-flag" id="lang-flag-current">🇨🇳</span>
+          <span id="lang-label-current">中文</span>
+          <span class="arrow">▼</span>
+        </button>
+        <div class="lang-menu" id="lang-menu">
+          <div class="lang-option" data-lang="zh">
+            <span class="lang-flag">🇨🇳</span>
+            <span>中文</span>
+          </div>
+          <div class="lang-option" data-lang="en">
+            <span class="lang-flag">🇺🇸</span>
+            <span>English</span>
+          </div>
+          <div class="lang-option" data-lang="ja">
+            <span class="lang-flag">🇯🇵</span>
+            <span>日本語</span>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -686,9 +756,8 @@
     <p data-i18n="footer.text">Built by <a href="#">朱亮</a> · Powered by GitHub Pages · © 2026</p>
   </footer>
 
-  <!-- i18n Scripts -->
+  <!-- i18n Script -->
   <script>
-    // Translation dictionary
     const translations = {
       zh: {
         "nav.about": "关于",
@@ -835,55 +904,167 @@
         "contact.desc": "Open to job opportunities, technical discussions, or collaboration. Feel free to reach out!",
         "contact.email": "zhuliang0827@gmail.com",
         "footer.text": "Built by <a href=\"#\">Zhu Liang</a> · Powered by GitHub Pages · © 2026"
+      },
+      ja: {
+        "nav.about": "概要",
+        "nav.experience": "経歴",
+        "nav.skills": "スキル",
+        "nav.projects": "プロジェクト",
+        "nav.contact": "お問い合わせ",
+        "hero.subtitle": "こんにちは！ 👋 私は",
+        "hero.name": "朱亮（ジュ・リャン）",
+        "hero.tagline": "データ駆動の意思決定者。",
+        "hero.desc": "トップ企業で9年以上のデータ分析経験を持ち、越境EC、インターネット広告、ブランドCRMの3分野を深く掘り下げてきました。<br /><br />0から1へビジネス指標体系を構築し、データマイニングを通じて課題を特定・戦略の実行を推進し、より正確な意思決定を支援します。",
+        "hero.cta": "お問い合わせ →",
+        "about.heading": "自己紹介",
+        "about.p1": "私は朱亮、データ分析とビジネスインサイトに特化したアナリストです。優れた分析とは単なるレポート作成ではなく、ビジネスの成長を真に牽引し、コストを削減し、効率を向上させる意思決定エンジンであると信じています。",
+        "about.p2": "テンセント動画からSHEIN、そして越境EC分野まで、さまざまな業界で豊富な実戦経験を積み、「データ駆動」を核とする方法论を常に貫いてきました。",
+        "about.loc": "📍 拠点：杭州",
+        "about.edu": "🎓 華中農業大学・学士（211工科大）",
+        "about.goal": "🎯 求職志向：データアナリスト／ビジネスアナリスト",
+        "exp.heading": "職務経歴",
+        "exp.date1": "2025年04月 — 現在",
+        "exp.role1": "デリバリーマネージャー・イノベーション＆エフィシエンシーセンター",
+        "exp.company1": "数織科技（子不語 越境EC）",
+        "exp.desc1": "Amazon広告システムの導入・運用を担当。年商100億円以上の大口出品者に対応し、広告効果BIダッシュボードを構築。デリバリー業務フローの最適化とSOP整備を推進し、デリバリーサイクルを50％以上短縮。",
+        "exp.date2": "2023年07月 — 2024年09月",
+        "exp.role2": "シニアデータアナリスト・分析部",
+        "exp.company2": "SHEIN（越境EC）",
+        "exp.desc2": "メキシコ市場（DAU 800万以上）の全会社データ分析を担当。クーポン最適化プロジェクトを主導、RFMセグメンテーション＋A/Bテスト検証により、UV売上を5％以上向上させつつ利益減少を1％以内に抑制。",
+        "exp.date3": "2020年06月 — 2023年07月",
+        "exp.role3": "シニアビジネスアナリスト・分析部",
+        "exp.company3": "邁睿中国／テレパフォーマンス（資生堂CRMプロジェクト）",
+        "exp.desc3": "資生堂CRMデータ分析を担当。異常口座検知モデルをゼロから構築し、累計8万口座以上を特定、キャンペーン毎に1万元以上のコストを削減。会員ポイント制度を最適化し、引換率を7pp向上。",
+        "exp.date4": "2019年02月 — 2020年05月",
+        "exp.role4": "データアナリスト・データ＆マーケットチーム",
+        "exp.company4": "テンセント動画（Tencent Video）",
+        "exp.desc4": "TV端末広告事業のデータ分析を担当。核心KPIを監視し販売目標を策定。OTT広告在庫最適化を推進し、販売率を3pp、在庫消費効率を20％向上させました。",
+        "exp.date5": "2017年07月 — 2018年10月",
+        "exp.role5": "グローバルデータ管理・市場戦略管理部",
+        "exp.company5": "北汽福田（BAIC Foton）",
+        "exp.desc5": "世界の自動車販売動向と競争環境を分析し、経営層の意思決定と戦略策定を支援する戦略分析レポートを作成。",
+        "skills.heading": "スキル＆ツール",
+        "skills.cat1": "データツール",
+        "skills.tool1": "SQL",
+        "skills.tool2": "Python (Pandas)",
+        "skills.tool3": "Excel (VBA)",
+        "skills.tool4": "Quick BI",
+        "skills.tool5": "Tableau",
+        "skills.cat2": "分析方法",
+        "skills.method1": "RFM セグメンテーション",
+        "skills.method2": "A/B テスト設計",
+        "skills.method3": "コンバージョンファネル",
+        "skills.method4": "ユーザー維持分析",
+        "skills.method5": "指標体系構築",
+        "skills.cat3": "業務領域",
+        "skills.domain1": "越境EC",
+        "skills.domain2": "インターネット広告",
+        "skills.domain3": "ブランドCRM",
+        "skills.domain4": "マーケティング最適化",
+        "skills.domain5": "異常検知モデリング",
+        "projects.heading": "主要プロジェクト",
+        "projects.p1_title": "クーポン戦略最適化",
+        "projects.p1_desc": "RFMモデルに基づく多次元ユーザーセグメンテーションを構築し、セグメント別の差別化クーポン戦略を設計、A/Bテストで有意性を検証。最終的にUV売上5％以上向上、利益減少1％以内に抑制し、大規模セールでのGMV目標100％以上達成に貢献。",
+        "projects.p1_tag1": "RFM セグメンテーション",
+        "projects.p1_tag2": "A/B テスト",
+        "projects.p1_tag3": "SHEIN",
+        "projects.p2_title": "異常口座検知モデル",
+        "projects.p2_desc": "資生堂CRMマーケティングシーンに向け、異常口座検知ルールとモデルをゼロから構築。累計8万口座以上を特定し、導入後はキャンペーン毎に1万元以上のコストを削減、マーケティングROIとデータ精度を大幅に向上。",
+        "projects.p2_tag1": "特徴エンジニアリング",
+        "projects.p2_tag2": "ルールエンジン",
+        "projects.p2_tag3": "資生堂CRM",
+        "contact.heading": "お問い合わせ",
+        "contact.desc": "求人情報、技術交流、コラボレーションなど、いつでもお気軽にご連絡ください！",
+        "contact.email": "zhuliang0827@gmail.com",
+        "footer.text": "Built by <a href=\"#\">朱亮</a> · Powered by GitHub Pages · © 2026"
       }
     };
 
-    // State
+    const langMeta = {
+      zh: { flag: '🇨🇳', label: '中文' },
+      en: { flag: '🇺🇸', label: 'English' },
+      ja: { flag: '🇯🇵', label: '日本語' }
+    };
+
     let currentLang = localStorage.getItem('lang') || 'zh';
 
     function applyLang(lang) {
       currentLang = lang;
       localStorage.setItem('lang', lang);
 
-      // Update all elements with data-i18n
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        const text = translations[lang][key];
+        const text = translations[lang]?.[key];
         if (text !== undefined) {
           el.innerHTML = text;
         }
       });
 
-      // Update lang label on button
-      const label = document.getElementById('lang-label');
-      if (label) {
-        label.textContent = lang === 'zh' ? 'EN' : '中文';
-      }
+      // Update dropdown trigger display
+      const meta = langMeta[lang];
+      const flagEl = document.getElementById('lang-flag-current');
+      const labelEl = document.getElementById('lang-label-current');
+      if (flagEl) flagEl.textContent = meta.flag;
+      if (labelEl) labelEl.textContent = meta.label;
 
-      // Update html lang attribute
+      // Update active state in menu
+      document.querySelectorAll('.lang-option').forEach(opt => {
+        opt.classList.toggle('active', opt.dataset.lang === lang);
+      });
+
+      // Update html lang
       const htmlRoot = document.getElementById('html-root');
       if (htmlRoot) {
-        htmlRoot.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
+        const langMap = { zh: 'zh-CN', en: 'en', ja: 'ja' };
+        htmlRoot.setAttribute('lang', langMap[lang] || 'zh-CN');
       }
     }
 
-    function toggleLang() {
-      const newLang = currentLang === 'zh' ? 'en' : 'zh';
-      // Fade effect
+    function switchLang(lang) {
+      if (lang === currentLang) return;
       document.body.classList.add('lang-switching');
       setTimeout(() => {
-        applyLang(newLang);
+        applyLang(lang);
         document.body.classList.remove('lang-switching');
       }, 200);
+      closeDropdown();
+    }
+
+    function openDropdown() {
+      document.getElementById('lang-dropdown').classList.add('open');
+    }
+
+    function closeDropdown() {
+      document.getElementById('lang-dropdown').classList.remove('open');
+    }
+
+    function toggleDropdown(e) {
+      e.stopPropagation();
+      const dd = document.getElementById('lang-dropdown');
+      if (dd.classList.contains('open')) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }
     }
 
     // Init
     document.addEventListener('DOMContentLoaded', () => {
       applyLang(currentLang);
-      const btn = document.getElementById('lang-toggle');
-      if (btn) {
-        btn.addEventListener('click', toggleLang);
-      }
+
+      // Trigger click → toggle dropdown
+      document.getElementById('lang-trigger').addEventListener('click', toggleDropdown);
+
+      // Option click → switch lang
+      document.querySelectorAll('.lang-option').forEach(opt => {
+        opt.addEventListener('click', (e) => {
+          e.stopPropagation();
+          switchLang(opt.dataset.lang);
+        });
+      });
+
+      // Close on outside click
+      document.addEventListener('click', () => closeDropdown());
     });
   </script>
 
