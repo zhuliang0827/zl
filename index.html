@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>朱亮 | 个人主页</title>
+  <title>朱亮 | 数据分析师</title>
   <style>
     * {
       margin: 0;
@@ -69,19 +69,35 @@
       font-weight: 500;
     }
 
-    .nav-links a:hover {
-      color: var(--color-primary);
-    }
+    .nav-links a:hover { color: var(--color-primary); }
 
     /* Hero Section */
     .hero {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      align-items: center;
       padding: 150px 50px 80px;
       max-width: 1100px;
       margin: 0 auto;
+      gap: 60px;
+    }
+
+    .avatar-wrapper {
+      flex-shrink: 0;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    .avatar-wrapper img {
+      width: 260px;
+      height: 340px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px -15px rgba(100, 255, 218, 0.15), 0 8px 25px rgba(0,0,0,0.4);
+      border: 2px solid rgba(100, 255, 218, 0.12);
+    }
+
+    .hero-content {
+      flex: 1;
     }
 
     .hero-subtitle {
@@ -89,14 +105,14 @@
       font-size: 1rem;
       color: var(--color-primary);
       margin-bottom: 15px;
-      animation: fadeInUp 0.5s ease forwards;
+      animation: fadeInUp 0.5s ease 0.1s both;
     }
 
     .hero-title {
-      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
       font-weight: 800;
       line-height: 1.1;
-      margin-bottom: 25px;
+      margin-bottom: 22px;
       animation: fadeInUp 0.5s ease 0.2s both;
     }
 
@@ -106,11 +122,12 @@
     }
 
     .hero-desc {
-      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
       color: var(--color-text-light);
-      max-width: 600px;
-      margin-bottom: 35px;
-      animation: fadeInUp 0.5s ease 0.4s both;
+      max-width: 520px;
+      margin-bottom: 32px;
+      line-height: 1.75;
+      animation: fadeInUp 0.5s ease 0.35s both;
     }
 
     /* CTA Button */
@@ -129,7 +146,7 @@
       background: transparent;
       cursor: pointer;
       width: fit-content;
-      animation: fadeInUp 0.5s ease 0.6s both;
+      animation: fadeInUp 0.5s ease 0.5s both;
     }
 
     .cta-btn:hover {
@@ -175,6 +192,7 @@
       color: var(--color-text-light);
       margin-bottom: 18px;
       font-size: 1.05rem;
+      line-height: 1.75;
     }
 
     .about-text ul {
@@ -184,11 +202,10 @@
 
     .about-text li {
       color: var(--color-text-light);
-      padding: 6px 0;
-      padding-left: 22px;
+      padding: 7px 0;
+      padding-left: 24px;
       position: relative;
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
 
     .about-text li::before {
@@ -196,6 +213,7 @@
       position: absolute;
       left: 0;
       color: var(--color-primary);
+      font-size: 1.1rem;
     }
 
     /* Skills Section */
@@ -208,37 +226,98 @@
     .skill-card {
       background: var(--color-bg-light);
       border-radius: 8px;
-      padding: 24px;
+      padding: 28px;
       transition: transform 0.25s ease;
     }
 
-    .skill-card:hover {
-      transform: translateY(-4px);
-    }
+    .skill-card:hover { transform: translateY(-4px); }
 
     .skill-card h3 {
       color: var(--color-primary);
       font-family: var(--font-mono);
       font-size: 0.85rem;
-      margin-bottom: 12px;
-      font-weight: 500;
+      margin-bottom: 16px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
     }
 
     .skill-list {
       list-style: none;
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 10px;
     }
 
     .skill-list li {
       font-size: 0.88rem;
       color: var(--color-text-light);
-      background: rgba(100, 255, 218, 0.05);
-      padding: 4px 12px;
+      background: rgba(100, 255, 218, 0.06);
+      padding: 5px 14px;
       border-radius: 4px;
       font-family: var(--font-mono);
       font-size: 0.78rem;
+    }
+
+    /* Experience Section */
+    .timeline {
+      position: relative;
+      padding-left: 36px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: rgba(136, 146, 176, 0.25);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .timeline-item:last-child { margin-bottom: 0; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -33px;
+      top: 8px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--color-bg);
+      border: 2px solid var(--color-primary);
+      z-index: 1;
+    }
+
+    .timeline-date {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--color-primary);
+      margin-bottom: 6px;
+    }
+
+    .timeline-role {
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 4px;
+    }
+
+    .timeline-company {
+      font-size: 0.92rem;
+      color: var(--color-text-light);
+      margin-bottom: 10px;
+    }
+
+    .timeline-desc {
+      font-size: 0.9rem;
+      color: var(--color-text-light);
+      line-height: 1.65;
     }
 
     /* Projects Section */
@@ -255,9 +334,7 @@
       transition: transform 0.25s ease;
     }
 
-    .project-card:hover {
-      transform: translateY(-5px);
-    }
+    .project-card:hover { transform: translateY(-5px); }
 
     .project-header {
       display: flex;
@@ -272,8 +349,7 @@
     }
 
     .folder-icon {
-      width: 12px;
-      height: 12px;
+      width: 12px; height: 12px;
       border-radius: 50%;
       background: var(--color-primary);
       opacity: 0.6;
@@ -286,18 +362,14 @@
       margin-left: 14px;
       transition: color 0.2s;
       font-size: 1.2rem;
+      text-decoration: none;
     }
+    .project-links a:hover { color: var(--color-primary); }
 
-    .project-links a:hover {
-      color: var(--color-primary);
-    }
-
-    .project-body {
-      padding: 20px 24px 32px;
-    }
+    .project-body { padding: 20px 24px 32px; }
 
     .project-body h3 {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 600;
       margin-bottom: 12px;
       color: var(--color-text);
@@ -305,8 +377,9 @@
 
     .project-body p {
       color: var(--color-text-light);
-      font-size: 0.92rem;
+      font-size: 0.91rem;
       margin-bottom: 18px;
+      line-height: 1.65;
     }
 
     .project-tech {
@@ -318,7 +391,7 @@
 
     .project-tech li {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       color: var(--color-text-light);
       opacity: 0.7;
     }
@@ -332,14 +405,15 @@
 
     .contact-wrapper p {
       color: var(--color-text-light);
-      font-size: 1.1rem;
-      margin-bottom: 40px;
+      font-size: 1.05rem;
+      margin-bottom: 38px;
+      line-height: 1.65;
     }
 
     .contact-email {
       display: inline-block;
       font-family: var(--font-mono);
-      font-size: clamp(1rem, 3vw, 1.5rem);
+      font-size: clamp(1rem, 3vw, 1.45rem);
       color: var(--color-primary);
       text-decoration: none;
       border-bottom: 2px solid transparent;
@@ -347,9 +421,7 @@
       transition: border-color 0.3s ease;
     }
 
-    .contact-email:hover {
-      border-color: var(--color-primary);
-    }
+    .contact-email:hover { border-color: var(--color-primary); }
 
     /* Footer */
     footer {
@@ -361,28 +433,24 @@
       opacity: 0.5;
     }
 
-    footer a {
-      color: var(--color-primary);
-      text-decoration: none;
-    }
+    footer a { color: var(--color-primary); text-decoration: none; }
 
     /* Animations */
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     /* Responsive */
+    @media (max-width: 900px) {
+      .hero { flex-direction: column-reverse; text-align: center; padding: 120px 20px 60px; gap: 36px; }
+      .hero-desc { max-width: 100%; margin-left: auto; margin-right: auto; }
+      .cta-btn { margin: 0 auto; }
+      .avatar-wrapper img { width: 200px; height: 262px; }
+    }
     @media (max-width: 768px) {
       nav { padding: 15px 20px; }
       .nav-links { gap: 18px; }
-      .hero { padding: 120px 20px 60px; }
       section { padding: 70px 20px; }
       .section-heading { font-size: 1.5rem; }
     }
@@ -395,6 +463,7 @@
     <a href="#" class="logo">Zhu<span>Liang</span></a>
     <ul class="nav-links">
       <li><a href="#about">关于</a></li>
+      <li><a href="#experience">经历</a></li>
       <li><a href="#skills">技能</a></li>
       <li><a href="#projects">项目</a></li>
       <li><a href="#contact">联系</a></li>
@@ -403,19 +472,22 @@
 
   <!-- Hero -->
   <section class="hero">
-    <p class="hero-subtitle">Hi there! 👋 我是</p>
-    <h1 class="hero-title">
-      朱亮
-      <br />
-      <span class="highlight">我热爱创造。</span>
-    </h1>
-    <p class="hero-desc">
-      一名热衷于探索技术与创意边界的开发者，<br />
-      用代码构建想法，让世界变得更有趣。
-    </p>
-    <a href="#contact" class="cta-btn">
-      联系我 →
-    </a>
+    <div class="avatar-wrapper">
+      <img src="avatar.jpg" alt="朱亮" />
+    </div>
+    <div class="hero-content">
+      <p class="hero-subtitle">Hi there! 👋 我是</p>
+      <h1 class="hero-title">
+        朱亮
+        <br />
+        <span class="highlight">数据驱动决策者。</span>
+      </h1>
+      <p class="hero-desc">
+        近 9 年头部企业数据分析经验，深耕跨境电商、互联网广告、品牌 CRM 三大领域。<br /><br />
+        擅长从 0 到 1 搭建业务指标体系，通过数据挖掘定位问题并推动策略落地，用数据让决策更精准。
+      </p>
+      <a href="#contact" class="cta-btn">联系我 →</a>
+    </div>
   </section>
 
   <!-- About -->
@@ -423,13 +495,51 @@
     <h2 class="section-heading">关于我</h2>
     <div class="about-grid">
       <div class="about-text">
-        <p>你好！我是朱亮，一名对技术充满热情的开发者。我相信好的代码不仅是能运行的程序，更是一种艺术表达。</p>
-        <p>我喜欢探索新技术、构建有趣的工具，并乐于分享我的学习心得。目前专注于全栈开发与 AI 应用领域。</p>
+        <p>我是朱亮，一名专注于数据分析与业务洞察的从业者。我相信好的分析不只是产出报表，而是能真正推动业务增长、降低成本、提升效率的决策引擎。</p>
+        <p>从腾讯视频到希音（SHEIN），再到跨境电商领域，我在不同行业积累了丰富的实战经验，始终以「数据驱动」为核心方法论。</p>
         <ul>
-          <li>🌐 基于中国</li>
-          <li>💼 全栈开发者 / AI 探索者</li>
-          <li>🎯 持续学习中</li>
+          <li>📍 基于杭州</li>
+          <li>💼 数据分析师 / 业务分析师</li>
+          <li>🎓 华中农业大学 · 本科 (211)</li>
+          <li>🎯 求职方向：数据分析 / 业务分析</li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <h2 class="section-heading">工作经历</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <p class="timeline-date">2025.04 — 至今</p>
+        <h3 class="timeline-role">交付经理 · 创新高效中心</h3>
+        <p class="timeline-company">数织科技（子不语跨境电商）</p>
+        <p class="timeline-desc">负责亚马逊广告系统交付实施，对接亿级大卖客户，搭建广告效果 BI 看板，推动交付流程优化与 SOP 沉淀，交付周期缩短 50%+。</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-date">2023.07 — 2024.09</p>
+        <h3 class="timeline-role">高级数据分析师 · 运营分析部</h3>
+        <p class="timeline-company">希音 SHEIN（跨境电商）</p>
+        <p class="timeline-desc">负责墨西哥市场（DAU 800w+）全站数据分析。主导优惠券精细化运营项目，构建 RFM 用户分层模型 + A/B 测试验证，实现 UV 销售额提升 5%+。</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-date">2020.06 — 2023.07</p>
+        <h3 class="timeline-role">高级业务分析师 · 业务分析部</h3>
+        <p class="timeline-company">迈睿中国 / Teleperformance（资生堂 CRM 项目）</p>
+        <p class="timeline-desc">负责资生堂客户关系管理数据分析。主导异常账户识别模型搭建，累计识别异常账户 8 万+，每次营销活动节省费用 1w+；优化会员积分机制，兑礼率提升 7pp。</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-date">2019.02 — 2020.05</p>
+        <h3 class="timeline-role">数据分析师 · 数据及市场组</h3>
+        <p class="timeline-company">腾讯视频</p>
+        <p class="timeline-desc">负责电视端广告业务数据分析，监控核心指标并制定销售 KPI，推动 OTT 广告库存优化，售卖率提升 3pp，库存消耗效率提高 20%。</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-date">2017.07 — 2018.10</p>
+        <h3 class="timeline-role">全球数据管理 · 市场战略管理部</h3>
+        <p class="timeline-company">北汽福田</p>
+        <p class="timeline-desc">分析全球汽车销量趋势与竞争格局，输出战略分析报告支持管理层决策与战略规划。</p>
       </div>
     </div>
   </section>
@@ -439,33 +549,33 @@
     <h2 class="section-heading">技能 & 工具</h2>
     <div class="skills-grid">
       <div class="skill-card">
-        <h3>前端开发</h3>
+        <h3>数据工具</h3>
         <ul class="skill-list">
-          <li>HTML/CSS</li>
-          <li>JavaScript</li>
-          <li>React</li>
-          <li>Vue.js</li>
-          <li>TypeScript</li>
+          <li>SQL</li>
+          <li>Python (Pandas)</li>
+          <li>Excel (VBA)</li>
+          <li>Quick BI</li>
+          <li>Tableau</li>
         </ul>
       </div>
       <div class="skill-card">
-        <h3>后端开发</h3>
+        <h3>分析方法</h3>
         <ul class="skill-list">
-          <li>Node.js</li>
-          <li>Python</li>
-          <li>Go</li>
-          <li>REST API</li>
-          <li>数据库</li>
+          <li>RFM 用户分层</li>
+          <li>A/B 测试设计</li>
+          <li>转化漏斗分析</li>
+          <li>用户留存分析</li>
+          <li>指标体系搭建</li>
         </ul>
       </div>
       <div class="skill-card">
-        <h3>工具 & 其他</h3>
+        <h3>业务领域</h3>
         <ul class="skill-list">
-          <li>Git</li>
-          <li>Docker</li>
-          <li>Linux</li>
-          <li>AI/LLM</li>
-          <li>OpenClaw</li>
+          <li>跨境电商</li>
+          <li>互联网广告</li>
+          <li>品牌 CRM</li>
+          <li>营销策略优化</li>
+          <li>异常检测建模</li>
         </ul>
       </div>
     </div>
@@ -473,7 +583,7 @@
 
   <!-- Projects -->
   <section id="projects">
-    <h2 class="section-heading">项目展示</h2>
+    <h2 class="section-heading">核心项目</h2>
     <div class="projects-grid">
       <div class="project-card">
         <div class="project-header">
@@ -482,22 +592,17 @@
             <span class="folder-icon"></span>
             <span class="folder-icon"></span>
           </div>
-          <div class="project-links">
-            <a href="#" title="GitHub">⌨</a>
-            <a href="#" title="预览">↗</a>
-          </div>
         </div>
         <div class="project-body">
-          <h3>个人主页</h3>
-          <p>使用纯 HTML + CSS 构建的现代化个人主页，采用暗色主题与流畅动画效果。</p>
+          <h3>优惠券策略优化</h3>
+          <p>基于 RFM 模型构建多维度用户分层，设计分群差异化优惠券策略，通过 A/B 测试验证显著性。最终 UV 销售额提升 5%+，利润降幅控制在 1% 以内，助力大促 GMV 目标达成 100%+。</p>
           <ul class="project-tech">
-            <li>HTML5</li>
-            <li>CSS3</li>
-            <li>GitHub Pages</li>
+            <li>RFM 分层</li>
+            <li>A/B 测试</li>
+            <li>SHEIN</li>
           </ul>
         </div>
       </div>
-
       <div class="project-card">
         <div class="project-header">
           <div class="project-folder">
@@ -505,16 +610,14 @@
             <span class="folder-icon"></span>
             <span class="folder-icon"></span>
           </div>
-          <div class="project-links">
-            <a href="#" title="GitHub">⌨</a>
-            <a href="#" title="预览">↗</a>
-          </div>
         </div>
         <div class="project-body">
-          <h3>更多项目...</h3>
-          <p>持续更新中，敬请期待更多有趣的项目！</p>
+          <h3>异常账户识别模型</h3>
+          <p>针对资生堂 CRM 营销场景，从零搭建异常账户识别规则与模型，累计识别异常账户 8 万+。部署后每次营销活动节省费用 1w+，显著提升投放 ROI 与数据准确性。</p>
           <ul class="project-tech">
-            <li>Coming Soon</li>
+            <li>特征工程</li>
+            <li>规则引擎</li>
+            <li>资生堂 CRM</li>
           </ul>
         </div>
       </div>
@@ -525,7 +628,7 @@
   <section id="contact">
     <h2 class="section-heading">联系我</h2>
     <div class="contact-wrapper">
-      <p>无论是工作机会、技术交流还是只是打个招呼，都欢迎联系我！</p>
+      <p>无论是工作机会、技术交流还是合作探讨，都欢迎随时联系！</p>
       <a href="mailto:zhuliang0827@gmail.com" class="contact-email">zhuliang0827@gmail.com</a>
     </div>
   </section>
