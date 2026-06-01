@@ -1,11 +1,539 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-<title>朱亮</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>朱亮 | 个人主页</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-primary: #64ffda;
+      --color-text: #ccd6f6;
+      --color-text-light: #8892b0;
+      --color-bg: #0a192f;
+      --color-bg-light: #112240;
+      --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      background: rgba(10, 25, 47, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--color-text); }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--color-text-light);
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 150px 50px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--color-primary);
+      margin-bottom: 15px;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 25px;
+      animation: fadeInUp 0.5s ease 0.2s both;
+    }
+
+    .hero-title .highlight {
+      color: var(--color-primary);
+      display: inline-block;
+    }
+
+    .hero-desc {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--color-text-light);
+      max-width: 600px;
+      margin-bottom: 35px;
+      animation: fadeInUp 0.5s ease 0.4s both;
+    }
+
+    /* CTA Button */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border: 2px solid var(--color-primary);
+      border-radius: 4px;
+      color: var(--color-primary);
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      background: transparent;
+      cursor: pointer;
+      width: fit-content;
+      animation: fadeInUp 0.5s ease 0.6s both;
+    }
+
+    .cta-btn:hover {
+      background: rgba(100, 255, 218, 0.08);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px -15px rgba(100, 255, 218, 0.3);
+    }
+
+    /* Section Common */
+    section {
+      padding: 100px 50px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-heading {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 50px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-heading::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 42px;
+      background: var(--color-primary);
+      border-radius: 2px;
+    }
+
+    /* About Section */
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--color-text-light);
+      margin-bottom: 18px;
+      font-size: 1.05rem;
+    }
+
+    .about-text ul {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .about-text li {
+      color: var(--color-text-light);
+      padding: 6px 0;
+      padding-left: 22px;
+      position: relative;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+    }
+
+    .about-text li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--color-primary);
+    }
+
+    /* Skills Section */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    .skill-card {
+      background: var(--color-bg-light);
+      border-radius: 8px;
+      padding: 24px;
+      transition: transform 0.25s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .skill-card h3 {
+      color: var(--color-primary);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-list li {
+      font-size: 0.88rem;
+      color: var(--color-text-light);
+      background: rgba(100, 255, 218, 0.05);
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--color-bg-light);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.25s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 24px 0;
+    }
+
+    .project-folder {
+      display: flex;
+      gap: 8px;
+    }
+
+    .folder-icon {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      opacity: 0.6;
+    }
+    .folder-icon:nth-child(2) { opacity: 0.45; }
+    .folder-icon:nth-child(3) { opacity: 0.3; }
+
+    .project-links a {
+      color: var(--color-text-light);
+      margin-left: 14px;
+      transition: color 0.2s;
+      font-size: 1.2rem;
+    }
+
+    .project-links a:hover {
+      color: var(--color-primary);
+    }
+
+    .project-body {
+      padding: 20px 24px 32px;
+    }
+
+    .project-body h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--color-text);
+    }
+
+    .project-body p {
+      color: var(--color-text-light);
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .project-tech li {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-text-light);
+      opacity: 0.7;
+    }
+
+    /* Contact Section */
+    .contact-wrapper {
+      text-align: center;
+      max-width: 550px;
+      margin: 0 auto;
+    }
+
+    .contact-wrapper p {
+      color: var(--color-text-light);
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+    }
+
+    .contact-email {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      color: var(--color-primary);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+      transition: border-color 0.3s ease;
+    }
+
+    .contact-email:hover {
+      border-color: var(--color-primary);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+      opacity: 0.5;
+    }
+
+    footer a {
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav { padding: 15px 20px; }
+      .nav-links { gap: 18px; }
+      .hero { padding: 120px 20px 60px; }
+      section { padding: 70px 20px; }
+      .section-heading { font-size: 1.5rem; }
+    }
+  </style>
 </head>
-<body style="font-family:sans-serif;text-align:center;padding:50px;">
-<h1>你好，我是朱亮</h1>
-<p>开发者 / OpenClaw用户</p>
-<p>© 2026</p>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#" class="logo">Zhu<span>Liang</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">关于</a></li>
+      <li><a href="#skills">技能</a></li>
+      <li><a href="#projects">项目</a></li>
+      <li><a href="#contact">联系</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <p class="hero-subtitle">Hi there! 👋 我是</p>
+    <h1 class="hero-title">
+      朱亮
+      <br />
+      <span class="highlight">我热爱创造。</span>
+    </h1>
+    <p class="hero-desc">
+      一名热衷于探索技术与创意边界的开发者，<br />
+      用代码构建想法，让世界变得更有趣。
+    </p>
+    <a href="#contact" class="cta-btn">
+      联系我 →
+    </a>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h2 class="section-heading">关于我</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>你好！我是朱亮，一名对技术充满热情的开发者。我相信好的代码不仅是能运行的程序，更是一种艺术表达。</p>
+        <p>我喜欢探索新技术、构建有趣的工具，并乐于分享我的学习心得。目前专注于全栈开发与 AI 应用领域。</p>
+        <ul>
+          <li>🌐 基于中国</li>
+          <li>💼 全栈开发者 / AI 探索者</li>
+          <li>🎯 持续学习中</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <h2 class="section-heading">技能 & 工具</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>前端开发</h3>
+        <ul class="skill-list">
+          <li>HTML/CSS</li>
+          <li>JavaScript</li>
+          <li>React</li>
+          <li>Vue.js</li>
+          <li>TypeScript</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>后端开发</h3>
+        <ul class="skill-list">
+          <li>Node.js</li>
+          <li>Python</li>
+          <li>Go</li>
+          <li>REST API</li>
+          <li>数据库</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>工具 & 其他</h3>
+        <ul class="skill-list">
+          <li>Git</li>
+          <li>Docker</li>
+          <li>Linux</li>
+          <li>AI/LLM</li>
+          <li>OpenClaw</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <h2 class="section-heading">项目展示</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-folder">
+            <span class="folder-icon"></span>
+            <span class="folder-icon"></span>
+            <span class="folder-icon"></span>
+          </div>
+          <div class="project-links">
+            <a href="#" title="GitHub">⌨</a>
+            <a href="#" title="预览">↗</a>
+          </div>
+        </div>
+        <div class="project-body">
+          <h3>个人主页</h3>
+          <p>使用纯 HTML + CSS 构建的现代化个人主页，采用暗色主题与流畅动画效果。</p>
+          <ul class="project-tech">
+            <li>HTML5</li>
+            <li>CSS3</li>
+            <li>GitHub Pages</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-folder">
+            <span class="folder-icon"></span>
+            <span class="folder-icon"></span>
+            <span class="folder-icon"></span>
+          </div>
+          <div class="project-links">
+            <a href="#" title="GitHub">⌨</a>
+            <a href="#" title="预览">↗</a>
+          </div>
+        </div>
+        <div class="project-body">
+          <h3>更多项目...</h3>
+          <p>持续更新中，敬请期待更多有趣的项目！</p>
+          <ul class="project-tech">
+            <li>Coming Soon</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2 class="section-heading">联系我</h2>
+    <div class="contact-wrapper">
+      <p>无论是工作机会、技术交流还是只是打个招呼，都欢迎联系我！</p>
+      <a href="mailto:hello@example.com" class="contact-email">hello@example.com</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Built by <a href="#">朱亮</a> · Powered by GitHub Pages · © 2026</p>
+  </footer>
+
 </body>
 </html>
